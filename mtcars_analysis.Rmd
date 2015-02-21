@@ -32,7 +32,7 @@ There is a clear distinction between the two, but on the pair plot (figure2), we
 
 # Stepwise regression
 To find some good model that fits the data, we will run stepwise regression.
-This method tries many various models to automatically find the best, so we must first split out dataset to training set and test set to avoid overfitting.
+This method tries _many_ various models to automatically find the best, so we must first split out dataset to training set and test set to avoid overfitting.
 
 ```{r}
 # 67% of the sample size
@@ -75,15 +75,17 @@ It improved our correlation even more to 0.95 (R^2=0.907), which means that tran
 # Note
 We had a luck twice with our correlations, thanks to our seed number.
 
-If we hadn't the luck first time (overfitting the model), we would use expert judgement to identify relevant variables. For example we can say that weight will definitely have an impact on fuel comsumption as well as number of cylinders.
+If we hadn't had the luck first time (overfitting the model), we would use expert judgement to identify relevant variables. For example we can say that weight will definitely have an impact on fuel comsumption as well as number of cylinders.
 
-If we hadn't the luck second time (removing `am` improved prediction performance), we would use coefficients from the lm model to quantify the `am` impact.
+If we hadn't had the luck second time (removing `am` improved prediction performance), we would use coefficients from the lm model to quantify the `am` impact.
 
 
 
 # Conclusion
 In this analysis we showed that `mpg` can be predicted very well by car's weight, number of cylinders, horsepower and number of carburetors.
 These four variables explain ~90% of the `mpg` variance. Car's weight has biggest impact while transmission type has no effect.
+
+I didn't answer the second question because there is no mpg difference between automatic and manual transmission. If there were a difference we can quantify it with the code I included  in `all_code.R`. (95% confidence interval)
 
 _______________________________________________________________________________
 
@@ -107,9 +109,10 @@ pairs(mtcars, panel=panel.smooth, main="Pair plot", col=3+mtcars$am)
 ```
 
 
-```{r echo=FALSE, fig.cap="Figure 3 - Best model (`cyl + wt + hp + carb`) performance on training set"}
+```{r echo=FALSE, fig.cap="Figure 3 - Best model (cyl + wt + hp + carb) performance on training set"}
 par(mfrow = c(2, 2))
 plot(fit)
+```
 
 ```{r echo=FALSE, fig.cap="Figure 4 - Summary and anova of the best model"}
 summary(fit)
