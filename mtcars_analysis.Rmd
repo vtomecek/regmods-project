@@ -78,7 +78,7 @@ We had a luck twice with our correlations, thanks to our seed number.
 If we hadn't had the luck first time (overfitting the model), we would use expert judgement to identify relevant variables. For example we can say that weight will definitely have an impact on fuel comsumption as well as number of cylinders.
 
 If we hadn't had the luck second time (removing `am` improved prediction performance), we would use coefficients from the lm model to quantify the `am` impact.
-
+We would use anova test to decide whether adding `am` improves our model significantly. (P value<0.05 means significant change (probably improvement); our model have P-value 0.1891 on whole dataset)
 
 
 # Conclusion
@@ -114,8 +114,13 @@ par(mfrow = c(2, 2))
 plot(fit)
 ```
 
-```{r echo=FALSE, fig.cap="Figure 4 - Summary and anova of the best model"}
+```{r echo=FALSE, fig.cap="Figure 4 - Summary of the best model"}
 summary(fit)
-anova(fit)
 ```
 
+```{r echo=FALSE, fig.cap="Figure 5 - Anova of the best model"}
+fit1 <- lm(mpg ~ cyl+wt+hp+carb, data = mtcars)
+fit2 <- lm(mpg ~ cyl+wt+hp+carb+am, data = mtcars)
+anova(fit1,fit2)
+```
+Anova - value 0.18 (it is > 0.05) doesn't mean an improvement
